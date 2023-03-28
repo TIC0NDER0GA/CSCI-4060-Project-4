@@ -1,6 +1,5 @@
 package uga.edu.country_quiz;
 
-
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -41,12 +41,15 @@ public class CSVReader {
                 data[row][1] = stuff[1]; // continent
 
                 // print statement to check data
-                Log.d(TAG, "Column 1= " + data[0] + " , Column 2=" + data[1]);
+                Log.d(TAG, "Column 1= " + data[row][0] + " , Column 2= " + data[row][1]);
                 row++;
             }
+            reader.close();
+            inputStream.close();
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
+
 
     }
 
