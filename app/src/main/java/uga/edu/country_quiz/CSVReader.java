@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class CSVReader {
     final private static int MAX_COUNTRY = 195; // the maximum number of countries in the file
-    final private String[][] data; // first index specifies which row second index the column
+    private String[][] data; // first index specifies which row second index the column
     final private Random random; // random number generator
 
     /**
