@@ -11,6 +11,8 @@ public class Question {
     private String rightC;
     private String wrongC1;
     private String wrongC2;
+    private boolean correct;
+
 
     final private String[] continents = new String[] {"South America", "North America", "Asia",
             "Africa", "Oceania", "Europe"};
@@ -40,5 +42,22 @@ public class Question {
             }
         }
     }
+
+    public String getRightC() {
+        return rightC;
+    }
+
+    public String getWrongC1() {
+        return wrongC1;
+    }
+
+    public String getWrongC2() {
+        return wrongC2;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
 
 }

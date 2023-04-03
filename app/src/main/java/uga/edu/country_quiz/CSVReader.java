@@ -95,6 +95,16 @@ public class CSVReader {
     }
 
     /**
+     * Returns a random continent index.
+     * A little redundant but I didn't want to
+     * make anther Random Object on a higher level.
+     * @return the STRING continent at the index
+     */
+    public int getRandIndex() {
+        return random.nextInt(MAX_COUNTRY);
+    }
+
+    /**
      *
      * @param r the number to be checked
      * @return TRUE if not in range FALSE if in range

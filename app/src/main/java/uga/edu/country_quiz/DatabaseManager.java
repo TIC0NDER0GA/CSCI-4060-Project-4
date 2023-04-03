@@ -38,7 +38,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE country_table (id INTEGER PRIMARY KEY, country TEXT, continent TEXT)");
         // the quiz table
         db.execSQL("CREATE TABLE quiz_result (id INTEGER PRIMARY KEY, date TEXT, score REAL)");
-        db.close();
     }
 
     @Override
@@ -54,8 +53,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
      */
     public void insertCC(String ctry, String cntient) {
         SQLiteDatabase db = getWritableDatabase();
-        String query = "VALUES (" + ctry + "," + cntient + ")";
-        db.execSQL("INSERT INTO country_table (country, continent) " + query);
+        ContentValues values = new ContentValues();
+        values.put("country", ctry);
+        values.put("continent", cntient);
+        db.insert("country_table", null, values);
         db.close();
     }
 
