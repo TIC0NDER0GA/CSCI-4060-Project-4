@@ -18,56 +18,56 @@ import android.widget.TextView;
  */
 public class QuestionFragment extends Fragment {
 
-    private TextView country; // country the user must guess continent for
+    private int questionNumber;
+    private TextView questionView;
     private RadioGroup choices;
-    private RadioButton choice_one; // will work with the Quiz class to determine user choice and correctness
-    private RadioButton choice_two;
-    private RadioButton choice_three;
-    private int numOfQuestions;
+    private RadioButton choiceOne;
+    private RadioButton choiceTwo;
+    private RadioButton choiceThree;
     private Question question;
 
     public QuestionFragment() {
         // Required empty public constructor
     }
 
-    public QuestionFragment(Question q) {
-        question = q;
+    public static QuestionFragment newInstance(int questionNumber, Question question) {
+        QuestionFragment fragment = new QuestionFragment();
+        Bundle args = new Bundle();
+        args.putInt("questionNumber", questionNumber);
+        args.putParcelable("question", question);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            questionNumber = getArguments().getInt("questionNumber");
+            question = getArguments().getParcelable("question");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View ui = inflater.inflate(R.layout.fragment_question, container, false);
-        choices = (RadioGroup) ui.findViewById(R.id.choices);
-        choice_one = (RadioButton) ui.findViewById(R.id.choice_one);
-        choice_two = (RadioButton) ui.findViewById(R.id.choice_two);
-        choice_three = (RadioButton) ui.findViewById(R.id.choice_three);
-        country = (TextView) ui.findViewById(R.id.country_choice);
+        choices = ui.findViewById(R.id.choices);
+        choiceOne = ui.findViewById(R.id.choice_one);
+        choiceTwo = ui.findViewById(R.id.choice_two);
+        choiceThree = ui.findViewById(R.id.choice_three);
+        questionView = ui.findViewById(R.id.country_choice);
 
-        country.setText(question.getCountry());
-        choice_one.setText(question.getRightC());
-        choice_two.setText(question.getWrongC1());
-        choice_three.setText(question.getWrongC2());
+        questionView.setText(question.getCountry());
+        choiceOne.setText(question.getRightC());
+        choiceTwo.setText(question.getWrongC1());
+        choiceThree.setText(question.getWrongC2());
         return ui;
     }
 
-
-    public String getChoice(int i) {
-        switch(i) {
-            case 0:
-                return choice_one.getText().toString();
-            case 1:
-                return choice_two.getText().toString();
-            case 2:
-                return choice_three.getText().toString();
-            default:
-                return "NOT A VALID CHOICE";
-        }
-
+    public String getChoice() {
+        int choiceId = choices.getCheckedRadioButtonId();
+        RadioButton selected = getView().findViewById(choiceId);
+        return selected != null ? selected.getText().toString() : null;
     }
 }

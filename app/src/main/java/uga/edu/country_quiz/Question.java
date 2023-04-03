@@ -1,11 +1,14 @@
 package uga.edu.country_quiz;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Random;
 
 /**
  * A POJO to represent a Question and save the country and continents
  */
-public class Question {
+public class Question implements Parcelable {
 
     private String country;
     private String rightC;
@@ -13,6 +16,41 @@ public class Question {
     private String wrongC2;
     private boolean correct;
 
+
+    public Question(Parcel in) {
+        country = in.readString();
+        rightC = in.readString();
+        wrongC1 = in.readString();
+        wrongC2 = in.readString();
+        correct = in.readByte() != 0;
+    }
+
+    // Required method to create a Parcelable object from the Question class
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(country);
+        dest.writeString(rightC);
+        dest.writeString(wrongC1);
+        dest.writeString(wrongC2);
+        dest.writeByte((byte) (correct ? 1 : 0));
+    }
 
     final private String[] continents = new String[] {"South America", "North America", "Asia",
             "Africa", "Oceania", "Europe"};
