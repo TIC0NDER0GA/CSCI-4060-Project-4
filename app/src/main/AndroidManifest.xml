@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CountryQuiz"
         tools:targetApi="31">
         <activity
-            android:name=".startQuiz"
+            android:name=".StartQuizActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
