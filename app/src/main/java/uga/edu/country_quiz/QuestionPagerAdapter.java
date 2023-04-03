@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
     public QuestionPagerAdapter(Context context, ArrayList<Question> data, FragmentManager fg) {
         quiz = data;
-         size = quiz.size();
+        size = quiz.size();
         layoutInflater = LayoutInflater.from(context);
         fragmentManager = fg;
     }
@@ -40,22 +41,25 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == object;
+        return view == ((Fragment) object).getView();
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = layoutInflater.inflate(R.layout.fragment_question, container, false);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        QuestionFragment fragment = new QuestionFragment(quiz.get(position));
-        Log.e(TAG, quiz.get(position).getCountry());
-        fragmentTransaction.add(R.id.pager_one, fragment);
-        fragmentTransaction.commit();
+        QuestionFragment fragment = new QuestionFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("question", quiz.get(position));
+        fragment.setArguments(args);
+        fragmentManager.beginTransaction()
+                .add(container.getId(), fragment)
+                .commit();
         return fragment;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((QuestionFragment) object);
+        fragmentManager.beginTransaction()
+                .remove((Fragment) object)
+                .commit();
     }
 }
