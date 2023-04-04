@@ -3,8 +3,11 @@ package uga.edu.country_quiz;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  *Manages database with the tables used in the
@@ -15,6 +18,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private final static String DATABASE_NAME = "ZA_WARUDO"; // the database name
     private final static int DATABASE_VERSION = 1; // the version for the super constructor
+    private ArrayList<Quiz> quizzes;
 
 
     /**
@@ -25,6 +29,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
      */
     public DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        quizzes = new ArrayList<Quiz>();
     }
 
     /**
@@ -70,6 +75,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String query = "VALUES (" + dt + "," + sr + ")";
         db.execSQL("INSERT INTO country_table (date, score) " + query);
         db.close();
+    }
+
+    public ArrayList<Quiz> getAllQS() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("SELECT * FROM quiz_result;");
+        Cursor cur = db.rawQuery("SELECT * FROM quiz_result ORDER BY score DESC;", null);
+        int num = 1;
+        if (cur.moveToFirst()) {
+            do {
+                quizzes.add(new Quiz(cur.getInt(num), cur.getString(num + 1), cur.getDouble(num + 2)));
+                num += 3;
+            } while (cur.moveToNext());
+        }
+        cur.close();
+        return quizzes;
     }
 
 
