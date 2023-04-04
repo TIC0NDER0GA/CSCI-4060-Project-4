@@ -1,11 +1,16 @@
 package uga.edu.country_quiz;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 
@@ -21,6 +26,9 @@ public class StartQuizActivity extends AppCompatActivity {
     private String[][] worldData;
     private int pos;
     private FragmentManager fragmentManager;
+    private RadioButton button_one;
+    private RadioButton button_two;
+    private RadioButton button_three;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +64,41 @@ public class StartQuizActivity extends AppCompatActivity {
         pager.setAdapter(questionPagerAdapter);
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                          @Override
-                                          public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            private int previousPage = 0;
 
+            @Override
+                                          public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                              if (position != previousPage) {
+                                                  previousPage = position;
+                                                  // Log.w(TAG, "Radio button text on page " + (previousPage + 1) + ":");
+                                                  View previousView = pager.getChildAt(previousPage);
+                                                  RadioButton button_one = previousView.findViewById(R.id.choice_one);
+                                                  RadioButton button_two = previousView.findViewById(R.id.choice_two);
+                                                  RadioButton button_three = previousView.findViewById(R.id.choice_three);
+                                                  if (button_one != null && button_two != null && button_three != null) {
+                                                      // Quiz checking stuff goes here tho this is for the
+                                                      // page the user is away from
+                                                  }
+                                              }
+
+                                              int nextPosition = position + 1;
+                                              if (nextPosition < pager.getChildCount() && positionOffset == 0) {
+                                                  // Log.w(TAG, "Radio button text on page " + (nextPosition + 1) + ":");
+                                                  View nextView = pager.getChildAt(nextPosition);
+                                                  RadioButton button_one = nextView.findViewById(R.id.choice_one);
+                                                  RadioButton button_two = nextView.findViewById(R.id.choice_two);
+                                                  RadioButton button_three = nextView.findViewById(R.id.choice_three);
+                                                  if (button_one != null && button_two != null && button_three != null) {
+                                                      // Quiz checking stuff goes here tho this is for the
+                                                      // page the user is swiping to.
+                                                      // I know it looks gross but most of
+                                                      // this code is just grabbing the radio buttons
+                                                  }
+                                              }
                                           }
                                           @Override
                                           public void onPageSelected(int position) {
-                                              pos = position;
+                                              previousPage = position;
                                           }
                                           @Override
                                           public void onPageScrollStateChanged(int state) {
