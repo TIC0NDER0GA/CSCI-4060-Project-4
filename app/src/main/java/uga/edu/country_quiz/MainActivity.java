@@ -35,15 +35,22 @@ public class MainActivity extends AppCompatActivity {
         pastResultsButton.setOnClickListener(new ButtonClickListener());
     }
 
+    /**
+     * Class which acts as a listener for both the Start Quiz and View Past Quizzes buttons.
+     * Starts the correct activity based on which button is clicked
+     */
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-//            Intent intent = new Intent(view.getContext(), StartQuizActivity.class);
-
-//            startActivity(intent);
-
+            Intent intent = new Intent();
+            switch(view.getId()) {
+                case R.id.button1:
+                    intent = new Intent(view.getContext(), StartQuizActivity.class);
+                case R.id.button2:
+//                    intent = new Intent(view.getContext(), PastQuizzesActivity.class);
+                    break;
+            }
+            startActivity(intent);
         }
     }
-
-
 }

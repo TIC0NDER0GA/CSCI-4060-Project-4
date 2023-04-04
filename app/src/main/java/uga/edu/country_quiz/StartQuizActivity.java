@@ -7,10 +7,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -75,9 +78,19 @@ public class StartQuizActivity extends AppCompatActivity {
                                                   RadioButton button_one = previousView.findViewById(R.id.choice_one);
                                                   RadioButton button_two = previousView.findViewById(R.id.choice_two);
                                                   RadioButton button_three = previousView.findViewById(R.id.choice_three);
+
                                                   if (button_one != null && button_two != null && button_three != null) {
                                                       // Quiz checking stuff goes here tho this is for the
                                                       // page the user is away from
+
+                                                      Question currQ = quiz.get(position);
+                                                      if (button_one.isChecked()) {
+                                                          currQ.checkAnswer(button_one.toString());
+                                                      } else if (button_two.isChecked()) {
+                                                          currQ.checkAnswer(button_two.toString());
+                                                      } else if (button_three.isChecked()) {
+                                                          currQ.checkAnswer(button_three.toString());
+                                                      }
                                                   }
                                               }
 
@@ -93,6 +106,14 @@ public class StartQuizActivity extends AppCompatActivity {
                                                       // page the user is swiping to.
                                                       // I know it looks gross but most of
                                                       // this code is just grabbing the radio buttons
+                                                      Question currQ = quiz.get(position);
+                                                      if (button_one.isChecked()) {
+                                                          currQ.checkAnswer(button_one.toString());
+                                                      } else if (button_two.isChecked()) {
+                                                          currQ.checkAnswer(button_two.toString());
+                                                      } else if (button_three.isChecked()) {
+                                                          currQ.checkAnswer(button_three.toString());
+                                                      }
                                                   }
                                               }
                                           }
@@ -106,5 +127,10 @@ public class StartQuizActivity extends AppCompatActivity {
                                           }
                                       }
         );
+
     }
+
+
+
+
 }
