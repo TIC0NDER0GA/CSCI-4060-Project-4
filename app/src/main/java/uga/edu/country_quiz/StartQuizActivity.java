@@ -71,55 +71,20 @@ public class StartQuizActivity extends AppCompatActivity {
 
             @Override
                                           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                              if (position != previousPage) {
-                                                  previousPage = position;
-                                                  // Log.w(TAG, "Radio button text on page " + (previousPage + 1) + ":");
-                                                  View previousView = pager.getChildAt(previousPage);
-                                                  RadioButton button_one = previousView.findViewById(R.id.choice_one);
-                                                  RadioButton button_two = previousView.findViewById(R.id.choice_two);
-                                                  RadioButton button_three = previousView.findViewById(R.id.choice_three);
 
-                                                  if (button_one != null && button_two != null && button_three != null) {
-                                                      // Quiz checking stuff goes here tho this is for the
-                                                      // page the user is away from
-
-                                                      Question currQ = quiz.get(position);
-                                                      if (button_one.isChecked()) {
-                                                          currQ.checkAnswer(button_one.toString());
-                                                      } else if (button_two.isChecked()) {
-                                                          currQ.checkAnswer(button_two.toString());
-                                                      } else if (button_three.isChecked()) {
-                                                          currQ.checkAnswer(button_three.toString());
-                                                      }
-                                                  }
-                                              }
-
-                                              int nextPosition = position + 1;
-                                              if (nextPosition < pager.getChildCount() && positionOffset == 0) {
-                                                  // Log.w(TAG, "Radio button text on page " + (nextPosition + 1) + ":");
-                                                  View nextView = pager.getChildAt(nextPosition);
-                                                  RadioButton button_one = nextView.findViewById(R.id.choice_one);
-                                                  RadioButton button_two = nextView.findViewById(R.id.choice_two);
-                                                  RadioButton button_three = nextView.findViewById(R.id.choice_three);
-                                                  if (button_one != null && button_two != null && button_three != null) {
-                                                      // Quiz checking stuff goes here tho this is for the
-                                                      // page the user is swiping to.
-                                                      // I know it looks gross but most of
-                                                      // this code is just grabbing the radio buttons
-                                                      Question currQ = quiz.get(position);
-                                                      if (button_one.isChecked()) {
-                                                          currQ.checkAnswer(button_one.toString());
-                                                      } else if (button_two.isChecked()) {
-                                                          currQ.checkAnswer(button_two.toString());
-                                                      } else if (button_three.isChecked()) {
-                                                          currQ.checkAnswer(button_three.toString());
-                                                      }
-                                                  }
-                                              }
                                           }
                                           @Override
                                           public void onPageSelected(int position) {
                                               previousPage = position;
+                                              View nextView = pager.getChildAt(position);
+                                              Log.e(TAG, "Position: " + position);
+                                              /**
+                                              if (position == limit - 2) {
+                                                  View nextView = pager.getChildAt(position);
+                                              }**/
+                                              // Keeps track of the current page
+                                              // Grab the current fragment and have the button tell you
+                                              // if it's selected
                                           }
                                           @Override
                                           public void onPageScrollStateChanged(int state) {
