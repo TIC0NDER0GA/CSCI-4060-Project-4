@@ -1,7 +1,10 @@
 package uga.edu.country_quiz;
 
+
 import static android.content.ContentValues.TAG;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,11 +18,13 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link QuestionFragment#newInstance} factory method to
+ * Use the {@link QuestionFragment} factory method to
  * create an instance of this fragment.
  */
 public class QuestionFragment extends Fragment {
@@ -32,19 +37,12 @@ public class QuestionFragment extends Fragment {
     private RadioButton choiceThree;
     private Button finishButton;
     private Question question;
+    private ArrayList<Question> quiz;
 
-    public QuestionFragment() {
-        // Required empty public constructor
+    public QuestionFragment(ArrayList<Question> q) {
+        quiz = q;
     }
 
-    public static QuestionFragment newInstance(int questionNumber, Question question) {
-        QuestionFragment fragment = new QuestionFragment();
-        Bundle args = new Bundle();
-        args.putInt("questionNumber", questionNumber);
-        args.putParcelable("question", question);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,11 +84,6 @@ public class QuestionFragment extends Fragment {
         return ui;
     }
 
-    public String getChoice() {
-        int choiceId = choices.getCheckedRadioButtonId();
-        RadioButton selected = getView().findViewById(choiceId);
-        return selected != null ? selected.getText().toString() : null;
-    }
 
     private class ButtonClickListener implements View.OnClickListener {
         @Override
@@ -101,17 +94,44 @@ public class QuestionFragment extends Fragment {
                     choice = (RadioButton) view;
                     question.setAnswerChoice(choice.getText().toString());
                     question.checkAnswer(choice.getText().toString());
+                    quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
+                    Log.e(TAG, choice.getText().toString()  + " Choice 1");
+
+                    break;
                 case R.id.choice_two:
                     choice = (RadioButton) view;
                     question.setAnswerChoice(choice.getText().toString());
                     question.checkAnswer(choice.getText().toString());
+                    quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
+                    Log.e(TAG, choice.getText().toString() + " Choice 2");
+                    break;
                 case R.id.choice_three:
                     choice = (RadioButton) view;
                     question.setAnswerChoice(choice.getText().toString());
                     question.checkAnswer(choice.getText().toString());
+                    quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
+                    Log.e(TAG, choice.getText().toString() +  " Choice 3");
+                    break;
                 case R.id.finish_button:
                     if (question.getQuestionNumber() == 5) {
                         Intent intent = new Intent(view.getContext(), ShowResultsActivity.class);
+                        double correct = 0.0;
+                        double total = (double) quiz.size();
+                        double percentage = 0.0;
+                        Date currentDate = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        String dateString = formatter.format(currentDate);
+
+                        for (int i = 0;  i < quiz.size(); i++) {
+                            if (quiz.get(i).isCorrect() == true) {
+                                correct++;
+                            }
+                        }
+                        percentage = (correct / total) * 100;
+                        // Log.e(TAG, "correct: " + correct + " /" + "total: " + total + " /" + "%: " + percentage);
+                        // Log.e(TAG, dateString);
+                        intent.putExtra("date", dateString);
+                        intent.putExtra("score", percentage);
                         startActivity(intent);
                     }
             }

@@ -46,7 +46,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        QuestionFragment fragment = new QuestionFragment();
+        QuestionFragment fragment = new QuestionFragment(quiz);
         Bundle args = new Bundle();
         args.putParcelable("question", quiz.get(position));
         fragment.setArguments(args);

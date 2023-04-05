@@ -83,9 +83,7 @@ public class Question implements Parcelable {
         }
     }
 
-    public void checkAnswer(String choice) {
-        correct = choice.equals(rightC);
-    }
+    public void checkAnswer(String choice) { correct = choice.equals(rightC); }
 
     public String getRightC() {
         return rightC;
@@ -102,6 +100,8 @@ public class Question implements Parcelable {
     public String getCountry() {
         return country;
     }
+
+    public boolean isCorrect() { return correct; }
 
     public void setAnswerChoice(String selectedAnswer) {
         answerChoice =  selectedAnswer;

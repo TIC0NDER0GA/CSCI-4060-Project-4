@@ -69,28 +69,6 @@ public class StartQuizActivity extends AppCompatActivity {
         questionPagerAdapter = new QuestionPagerAdapter(this, quiz, getSupportFragmentManager());
         pager.setAdapter(questionPagerAdapter);
 
-        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            private int previousPage = 0;
-
-            @Override
-                                          public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                                          }
-                                          @Override
-                                          public void onPageSelected(int position) {
-                                              previousPage = position;
-                                              View nextView = pager.getChildAt(position);
-                                              // Keeps track of the current page
-                                              // Grab the current fragment and have the button tell you
-                                              // if it's selected
-                                          }
-                                          @Override
-                                          public void onPageScrollStateChanged(int state) {
-
-                                          }
-                                      }
-        );
-
     }
 
 
