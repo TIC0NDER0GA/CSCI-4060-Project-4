@@ -1,15 +1,21 @@
 package uga.edu.country_quiz;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,7 @@ public class QuestionFragment extends Fragment {
     private RadioButton choiceOne;
     private RadioButton choiceTwo;
     private RadioButton choiceThree;
+    private Button finishButton;
     private Question question;
 
     public QuestionFragment() {
@@ -57,11 +64,25 @@ public class QuestionFragment extends Fragment {
         choiceTwo = ui.findViewById(R.id.choice_two);
         choiceThree = ui.findViewById(R.id.choice_three);
         questionView = ui.findViewById(R.id.country_choice);
+        finishButton = ui.findViewById(R.id.finish_button);
 
         questionView.setText(question.getCountry());
         choiceOne.setText(question.getRightC());
         choiceTwo.setText(question.getWrongC1());
         choiceThree.setText(question.getWrongC2());
+
+        choiceOne.setOnClickListener(new QuestionFragment.ButtonClickListener());
+        choiceTwo.setOnClickListener(new QuestionFragment.ButtonClickListener());
+        choiceThree.setOnClickListener(new QuestionFragment.ButtonClickListener());
+        finishButton.setOnClickListener(new QuestionFragment.ButtonClickListener());
+
+        if (question.getQuestionNumber() == 5) {
+            finishButton.setOnClickListener(new QuestionFragment.ButtonClickListener());
+        }
+        else {
+            finishButton.setVisibility(finishButton.GONE);
+        }
+
         return ui;
     }
 
@@ -70,4 +91,31 @@ public class QuestionFragment extends Fragment {
         RadioButton selected = getView().findViewById(choiceId);
         return selected != null ? selected.getText().toString() : null;
     }
+
+    private class ButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            RadioButton choice;
+            switch (view.getId()){
+                case R.id.choice_one:
+                    choice = (RadioButton) view;
+                    question.setAnswerChoice(choice.getText().toString());
+                    question.checkAnswer(choice.getText().toString());
+                case R.id.choice_two:
+                    choice = (RadioButton) view;
+                    question.setAnswerChoice(choice.getText().toString());
+                    question.checkAnswer(choice.getText().toString());
+                case R.id.choice_three:
+                    choice = (RadioButton) view;
+                    question.setAnswerChoice(choice.getText().toString());
+                    question.checkAnswer(choice.getText().toString());
+                case R.id.finish_button:
+                    if (question.getQuestionNumber() == 5) {
+                        Intent intent = new Intent(view.getContext(), ShowResultsActivity.class);
+                        startActivity(intent);
+                    }
+            }
+        }
+    }
+
 }

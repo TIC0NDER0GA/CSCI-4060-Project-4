@@ -15,6 +15,8 @@ public class Question implements Parcelable {
     private String wrongC1;
     private String wrongC2;
     private boolean correct;
+    private String answerChoice = "";
+    private int qNumber = 0;
 
 
     public Question(Parcel in) {
@@ -100,6 +102,17 @@ public class Question implements Parcelable {
     public String getCountry() {
         return country;
     }
+
+    public void setAnswerChoice(String selectedAnswer) {
+        answerChoice =  selectedAnswer;
+    }
+
+    public int getQuestionNumber() { return qNumber; }
+
+    public void setQuestionNumber(int qNumber) {
+        this.qNumber = qNumber;
+    }
+
 
 
 }
