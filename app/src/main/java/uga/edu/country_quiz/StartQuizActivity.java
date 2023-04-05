@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class StartQuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
-        int limit = 7;
+        int limit = 6;
         int added = 0;
         pos = 0;
         String memberCountry = "";
@@ -57,7 +58,9 @@ public class StartQuizActivity extends AppCompatActivity {
             memberContinent = reader.getContinent(reader.getRandIndex());
             if (quiz.isEmpty() || !(countriesList.contains(memberCountry))) {
                 countriesList.add(memberCountry);
-                quiz.add(new Question(memberCountry,memberContinent));
+                Question newQ = new Question(memberCountry,memberContinent);
+                newQ.setQuestionNumber(added);
+                quiz.add(newQ);
                 added++;
             }
         }
@@ -77,11 +80,6 @@ public class StartQuizActivity extends AppCompatActivity {
                                           public void onPageSelected(int position) {
                                               previousPage = position;
                                               View nextView = pager.getChildAt(position);
-                                              Log.e(TAG, "Position: " + position);
-                                              /**
-                                              if (position == limit - 2) {
-                                                  View nextView = pager.getChildAt(position);
-                                              }**/
                                               // Keeps track of the current page
                                               // Grab the current fragment and have the button tell you
                                               // if it's selected

@@ -48,21 +48,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton" />
+            android:text="RadioButton"/>
 
         <RadioButton
             android:id="@+id/choice_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton" />
+            android:text="RadioButton"/>
 
         <RadioButton
             android:id="@+id/choice_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton" />
+            android:text="RadioButton"/>
 
     </RadioGroup>
 
