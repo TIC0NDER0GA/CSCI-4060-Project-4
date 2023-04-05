@@ -104,8 +104,10 @@ public class Question implements Parcelable {
     public boolean isCorrect() { return correct; }
 
     public void setAnswerChoice(String selectedAnswer) {
-        answerChoice =  selectedAnswer;
+        this.answerChoice =  selectedAnswer;
     }
+
+    public String getAnswerChoice() {return this.answerChoice;}
 
     public int getQuestionNumber() { return qNumber; }
 

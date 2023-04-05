@@ -4,6 +4,7 @@ package uga.edu.country_quiz;
 import static android.content.ContentValues.TAG;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,9 +66,20 @@ public class QuestionFragment extends Fragment {
         finishButton = ui.findViewById(R.id.finish_button);
 
         questionView.setText(question.getCountry());
-        choiceOne.setText(question.getRightC());
-        choiceTwo.setText(question.getWrongC1());
-        choiceThree.setText(question.getWrongC2());
+        ArrayList<String> answerChoices = new ArrayList<String>();
+        answerChoices.add(question.getRightC());
+        answerChoices.add(question.getWrongC1());
+        answerChoices.add(question.getWrongC2());
+
+        Collections.shuffle(answerChoices);
+
+        choiceOne.setText(answerChoices.get(0));
+        choiceTwo.setText(answerChoices.get(1));
+        choiceThree.setText(answerChoices.get(2));
+
+//        choiceOne.setText(question.getRightC());
+//        choiceTwo.setText(question.getWrongC1());
+//        choiceThree.setText(question.getWrongC2());
 
         choiceOne.setOnClickListener(new QuestionFragment.ButtonClickListener());
         choiceTwo.setOnClickListener(new QuestionFragment.ButtonClickListener());
@@ -123,7 +135,7 @@ public class QuestionFragment extends Fragment {
                         String dateString = formatter.format(currentDate);
 
                         for (int i = 0;  i < quiz.size(); i++) {
-                            if (quiz.get(i).isCorrect() == true) {
+                            if (quiz.get(i).isCorrect()) {
                                 correct++;
                             }
                         }
@@ -132,6 +144,7 @@ public class QuestionFragment extends Fragment {
                         // Log.e(TAG, dateString);
                         intent.putExtra("date", dateString);
                         intent.putExtra("score", percentage);
+                        intent.putExtra("questions", quiz);
                         startActivity(intent);
                     }
             }
