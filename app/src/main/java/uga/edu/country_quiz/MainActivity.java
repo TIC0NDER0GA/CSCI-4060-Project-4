@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(view.getContext(), StartQuizActivity.class);
                     break;
                 case R.id.button2:
-                    intent = new Intent(view.getContext(), ShowResultsActivity.class);
+                    intent = new Intent(view.getContext(), PastQuizzesActivity.class);
                     break;
             }
             startActivity(intent);

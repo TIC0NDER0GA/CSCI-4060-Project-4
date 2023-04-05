@@ -25,15 +25,6 @@ public class PastQuizzesActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             dbmanager = new DatabaseManager(this);
             intent = getIntent();
-            String dateString = intent.getStringExtra("date");
-            double percentage = intent.getDoubleExtra("score", 0.0);
-            // Log.d(TAG, dateString);
-            // Log.d(TAG, String.valueOf(percentage));
-
-            if (dateString != null) {
-                dbmanager.insertQS(dateString,percentage);
-            }
-
             setContentView(R.layout.activity_past_quizzes);
             recyclerView = (RecyclerView) findViewById(R.id.result_list);
             linearLayoutManager= new LinearLayoutManager(this);

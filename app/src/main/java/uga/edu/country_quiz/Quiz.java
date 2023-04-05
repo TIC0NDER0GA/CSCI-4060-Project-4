@@ -16,7 +16,7 @@ public class Quiz {
     public Quiz(int quizNum, String date, double score) {
         quizNumber = quizNum;
         dt = date;
-        score = sr;
+        sr = score;
     }
 
     public double getSr() {

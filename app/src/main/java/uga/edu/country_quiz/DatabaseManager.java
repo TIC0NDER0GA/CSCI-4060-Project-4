@@ -91,8 +91,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Cursor cur = db.rawQuery("SELECT * FROM quiz_result ORDER BY score DESC;", null);
         if (cur.moveToFirst()) {
             do {
-                quizzes.add(new Quiz(cur.getInt(0), cur.getString(1), cur.getDouble(1)));
-                Log.e(TAG,cur.getInt(0) + " " + cur.getString(1) + " " + cur.getDouble(1));
+                quizzes.add(new Quiz(cur.getInt(0), cur.getString(1), cur.getDouble(2)));
+                Log.e(TAG,cur.getInt(0) + " " + cur.getString(1) + " " + cur.getDouble(2));
             } while (cur.moveToNext());
         }
         cur.close();
