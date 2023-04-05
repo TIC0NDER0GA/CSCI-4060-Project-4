@@ -25,21 +25,27 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="25dp"
         android:text="description goes here"
+        android:textAlignment="center"
+        android:textColor="#4A4A4A"
         android:textSize="16sp" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Start Quiz"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Past Quizzes"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
 </LinearLayout>

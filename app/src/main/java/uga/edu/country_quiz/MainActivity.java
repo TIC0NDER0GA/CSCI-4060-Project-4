@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         pastResultsButton = findViewById(R.id.button2);
 
         descriptionTextView = findViewById(R.id.textView2);
-        descriptionTextView.setText("Use this app to test your knowledge about different countries!\n " +
+        descriptionTextView.setText("Use this app to test your geography knowledge!\n\n " +
                 "First click the start quiz button. Then you will have 6 questions. For each " +
                 "question choose the correct continent for that country. Swipe left to go to the " +
                 "next question. If you want to see the results of your past quizzes click the View " +
