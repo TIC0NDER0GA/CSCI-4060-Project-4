@@ -1,12 +1,10 @@
 package uga.edu.country_quiz;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +22,15 @@ public class ShowResultsActivity extends AppCompatActivity {
     private QuizResultAdapter quizResultsAdapter;
     private Intent intent;
     private ArrayList<Question> quiz;
+
+    private Button startQuiz;
+    private Button viewPast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_show_results);
+
         dbmanager = new DatabaseManager(this);
         intent = getIntent();
         String dateString = intent.getStringExtra("date");
@@ -37,28 +41,72 @@ public class ShowResultsActivity extends AppCompatActivity {
             dbmanager.insertQS(dateString,percentage);
         }
 
-        setContentView(R.layout.activity_show_results);
+        startQuiz = findViewById(R.id.startNew);
+        viewPast = findViewById(R.id.viewPast);
+
+        startQuiz.setOnClickListener(new ButtonClickListener());
+        viewPast.setOnClickListener(new ButtonClickListener());
+
         TextView scoreTextView = findViewById(R.id.textView5);
-        scoreTextView.setText(Double.toString(percentage));
+        scoreTextView.setText(Integer.toString((int) percentage));
 
         ImageView image1 = findViewById(R.id.imageView1);
         TextView qId1 = findViewById(R.id.Qid1);
-//      TextView choice1 = findViewById(R.id.countryAnswer1);
-        TextView correct1 = findViewById(R.id.correctAnswer1);
-        showQResult(image1, qId1,correct1, quiz.get(0), "Q1)");
+        TextView correct1 = findViewById(R.id.answer1);
+        showQResult(image1, qId1, correct1, quiz.get(0), "Q1) ");
+
+        ImageView image2 = findViewById(R.id.imageView2);
+        TextView qId2 = findViewById(R.id.Qid2);
+        TextView correct2 = findViewById(R.id.amswer2);
+        showQResult(image2, qId2, correct2, quiz.get(1), "Q2) ");
+
+        ImageView image3 = findViewById(R.id.imageView3);
+        TextView qId3 = findViewById(R.id.Qid3);
+        TextView correct3 = findViewById(R.id.answer3);
+        showQResult(image3, qId3, correct3, quiz.get(2), "Q3) ");
+
+        ImageView image4 = findViewById(R.id.imageView4);
+        TextView qId4 = findViewById(R.id.Qid4);
+        TextView correct4 = findViewById(R.id.answer4);
+        showQResult(image4, qId4, correct4, quiz.get(3), "Q4) ");
+
+        ImageView image5 = findViewById(R.id.imageView5);
+        TextView qId5 = findViewById(R.id.Qid5);
+        TextView correct5 = findViewById(R.id.answer5);
+        showQResult(image5, qId5, correct5, quiz.get(4), "Q5) ");
+
+        ImageView image6 = findViewById(R.id.imageView6);
+        TextView qId6 = findViewById(R.id.Qid6);
+        TextView correct6 = findViewById(R.id.answer6);
+        showQResult(image6, qId6,correct6, quiz.get(5), "Q6) ");
 
     }
 
     private void showQResult(ImageView image, TextView qIdView, TextView correct, Question currQ, String qNum) {
-        correct.setText("Country: " + currQ.getCountry() + " Correct Answer:" + currQ.getRightC());
-        qIdView.setText(qNum);
+        correct.setText("Correct Answer:  " + currQ.getRightC());
+        qIdView.setText(qNum + currQ.getCountry());
         if (currQ.isCorrect()) {
-//            correct.setVisibility(correct.GONE);
             image.setImageResource(R.drawable.checkmark);
         }
         else {
-//            correct.setText("Correct Answer: " + currQ.getRightC());
             image.setImageResource(R.drawable.wrong);
         }
     }
+
+    private class ButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            switch(view.getId()) {
+                case R.id.startNew:
+                    intent = new Intent(view.getContext(), StartQuizActivity.class);
+                    break;
+                case R.id.viewPast:
+                    intent = new Intent(view.getContext(), PastQuizzesActivity.class);
+                    break;
+            }
+            startActivity(intent);
+        }
+    }
+
 }
