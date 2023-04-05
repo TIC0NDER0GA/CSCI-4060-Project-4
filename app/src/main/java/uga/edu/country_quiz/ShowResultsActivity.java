@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,5 +42,7 @@ public class ShowResultsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         quizResultsAdapter = new QuizResultAdapter(dbmanager.getAllQS());
         recyclerView.setAdapter(quizResultsAdapter);
+        TextView scoreTextView = findViewById(R.id.textView5);
+        scoreTextView.setText(Double.toString(percentage));
     }
 }

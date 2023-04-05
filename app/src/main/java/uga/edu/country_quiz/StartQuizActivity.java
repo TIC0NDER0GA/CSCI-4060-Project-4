@@ -54,8 +54,10 @@ public class StartQuizActivity extends AppCompatActivity {
         }
 
         while (added < limit) {
-            memberCountry = reader.getCountry(reader.getRandIndex());
-            memberContinent = reader.getContinent(reader.getRandIndex());
+            int index = reader.getRandIndex();
+            memberCountry = reader.getCountry(index);
+            memberContinent = reader.getContinent(index);
+            Log.e(TAG, memberCountry + ", " + memberContinent);
             if (quiz.isEmpty() || !(countriesList.contains(memberCountry))) {
                 countriesList.add(memberCountry);
                 Question newQ = new Question(memberCountry,memberContinent);
