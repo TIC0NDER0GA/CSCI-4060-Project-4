@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button startButton;
-    private Button pastResultsButton;
-    private TextView descriptionTextView;
+    private Button startButton; // button that opens the activity to start the quiz
+    private Button pastResultsButton; // button that opens the activity to show past quizzes taken
+    private TextView descriptionTextView; // describes to the user what the app is about
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

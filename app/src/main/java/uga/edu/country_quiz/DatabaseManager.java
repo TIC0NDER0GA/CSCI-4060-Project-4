@@ -22,7 +22,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private final static String DATABASE_NAME = "ZA_WARUDO"; // the database name
     private final static int DATABASE_VERSION = 1; // the version for the super constructor
-    private ArrayList<Quiz> quizzes;
+    private ArrayList<Quiz> quizzes; // used to hold all quiz results from previous quizzes
 
 
     /**
@@ -55,17 +55,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     /**
-     * Puts in the country and continent
-     * when needed.
-     * @param ctry the country to insert
-     * @param cntient the continent to insert
+     *
+     * @param worldData the countries and continents from the csv.
      */
-    public void insertCC(String ctry, String cntient) {
+    public void insertCC(String[][] worldData) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("country", ctry);
-        values.put("continent", cntient);
-        db.insert("country_table", null, values);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < worldData.length; i++) {
+                    ContentValues values = new ContentValues();
+                    values.put("country", worldData[i][0]);
+                    values.put("continent", worldData[i][1]);
+                    db.execSQL("INSERT OR IGNORE INTO country_table (country, continent) VALUES (?, ?)",
+                            new String[] { worldData[i][0], worldData[i][1] });
+                }
+            }
+        });
         db.close();
     }
 
@@ -86,6 +92,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Method that queries the database for all past quizzes
+     * @return an ARRAYLIST<QUIZ> of all previous quizzes taken
+     */
     public ArrayList<Quiz> getAllQS() {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cur = db.rawQuery("SELECT * FROM quiz_result ORDER BY score DESC;", null);

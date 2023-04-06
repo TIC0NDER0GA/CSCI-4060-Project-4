@@ -49,9 +49,8 @@ public class StartQuizActivity extends AppCompatActivity {
         reader = new CSVReader(context);
         manager = new DatabaseManager(context);
         worldData = reader.getData();
-        for (int i = 0 ; i < worldData.length; i++) {
-            manager.insertCC(worldData[i][0],worldData[i][1]);
-        }
+        manager.insertCC(worldData);
+
 
         while (added < limit) {
             int index = reader.getRandIndex();

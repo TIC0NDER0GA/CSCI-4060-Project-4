@@ -10,15 +10,20 @@ import java.util.Random;
  */
 public class Question implements Parcelable {
 
-    private String country;
-    private String rightC;
-    private String wrongC1;
-    private String wrongC2;
-    private boolean correct;
-    private String answerChoice = "";
-    private int qNumber = 0;
+    private String country; // the country used for the question
+    private String rightC; // the correct continent for the country
+    private String wrongC1; // the first wrong choice
+    private String wrongC2; // the second wrong choice
+    private boolean correct; // if this question was answered correctly
+    private String answerChoice = ""; // stores user answer from radiobutto
+    private int qNumber = 0; // the position of the question in the quiz
 
 
+    /**
+     * A method that sets all the values in order to make a question
+     * parcable. This makes it easier to dynami
+     * @param in
+     */
     public Question(Parcel in) {
         country = in.readString();
         rightC = in.readString();
@@ -27,13 +32,27 @@ public class Question implements Parcelable {
         correct = in.readByte() != 0;
     }
 
-    // Required method to create a Parcelable object from the Question class
+
+    /**
+     * Required method to create a Parcelable object from the Question class
+     */
     public static final Creator<Question> CREATOR = new Creator<Question>() {
+
+        /**
+         * Creates a Question obj
+         * @param in the class vars for the Question obj
+         * @return a Parcable Question obj
+         */
         @Override
         public Question createFromParcel(Parcel in) {
             return new Question(in);
         }
 
+        /**
+         * inits an array to hold the class vars
+         * @param size amount of class vars
+         * @return
+         */
         @Override
         public Question[] newArray(int size) {
             return new Question[size];
@@ -45,6 +64,11 @@ public class Question implements Parcelable {
         return 0;
     }
 
+    /**
+     * Necessary parcable stuff
+     * @param dest where it's going
+     * @param flags unused
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(country);
