@@ -49,13 +49,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS quiz_result (id INTEGER PRIMARY KEY, date TEXT, score REAL)");
     }
 
+    /**
+     * Upgrades the database version internally in the
+     * android device. Not applicable for the current
+     * application.
+     * @param sqLiteDatabase the database
+     * @param i current version number
+     * @param i1 next version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
 
     /**
-     *
+     *Inserts all the countries and continents into the database
+     * on a seperate thread to prevent stalling of app.
      * @param worldData the countries and continents from the csv.
      */
     public void insertCC(String[][] worldData) {
