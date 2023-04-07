@@ -8,12 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * The main activity class to begin the Country Quiz Application
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button startButton; // button that opens the activity to start the quiz
     private Button pastResultsButton; // button that opens the activity to show past quizzes taken
     private TextView descriptionTextView; // describes to the user what the app is about
 
+    /**
+     * Creates the main activity and sets the view
+     * @param savedInstanceState If the fragment is being re-created from
+     *      * a previous saved state, this is the state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

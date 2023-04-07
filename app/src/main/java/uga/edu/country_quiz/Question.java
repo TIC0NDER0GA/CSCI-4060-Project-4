@@ -21,7 +21,7 @@ public class Question implements Parcelable {
 
     /**
      * A method that sets all the values in order to make a question
-     * parcable. This makes it easier to dynami
+     * parceable. This makes it easier to dynamic
      * @param in
      */
     public Question(Parcel in) {
@@ -107,34 +107,69 @@ public class Question implements Parcelable {
         }
     }
 
+    /**
+     * Method to check if the users answer is correct (if
+     * it is the same as rightC)
+     * @param choice String which is the continent that the user has chosen for their answer
+     */
     public void checkAnswer(String choice) { correct = choice.equals(rightC); }
 
+    /**
+     * Method to get the correct continent answer choice
+     * @return String which is the name of the continent
+     */
     public String getRightC() {
         return rightC;
     }
 
+    /**
+     * Method to get the first wrong continent answer choice
+     * @return String which is the name of the continent
+     */
     public String getWrongC1() {
         return wrongC1;
     }
 
+    /**
+     * Method to get the second wrong continent answer choice
+     * @return String which is the name of the continent
+     */
     public String getWrongC2() {
         return wrongC2;
     }
 
+    /**
+     * Method to get the country for this specific question
+     * @return String which is the name of the country
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * Method to check if the answer is correct or incorrect
+     * @return boolean, true if correct, false if incorrect
+     */
     public boolean isCorrect() { return correct; }
 
+    /**
+     * Method to set the answer choice for the question
+     * @param selectedAnswer String that the answer choice should be set to
+     */
     public void setAnswerChoice(String selectedAnswer) {
         this.answerChoice =  selectedAnswer;
     }
 
-    public String getAnswerChoice() {return this.answerChoice;}
-
+    /**
+     * Method to get the question number
+     * @return Integer which is the question number
+     */
     public int getQuestionNumber() { return qNumber; }
 
+    /**
+     * Method to set the question number
+     * @param qNumber integer for question number to be set to
+     */
     public void setQuestionNumber(int qNumber) {
         this.qNumber = qNumber;
     }

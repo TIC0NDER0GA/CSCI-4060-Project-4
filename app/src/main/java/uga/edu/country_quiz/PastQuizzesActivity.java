@@ -22,6 +22,11 @@ public class PastQuizzesActivity extends AppCompatActivity {
         private DatabaseManager dbmanager; // used to manage and query any data needed from the database
         private QuizResultAdapter quizResultsAdapter; // adapts the raw data into views for use by the recycler view
 
+    /**
+     * Creates the past quizzes activity
+     * @param savedInstanceState If the fragment is being re-created from
+     *      * a previous saved state, this is the state.
+     */
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

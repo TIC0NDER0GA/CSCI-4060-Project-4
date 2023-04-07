@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class StartQuizActivity extends AppCompatActivity {
 
     private Context context;
-    private DatabaseManager manager; // will help the quiz array check for corect answer via database and will save score upon completion
+    private DatabaseManager manager; // will help the quiz array check for correct answer via database and will save score upon completion
     private CSVReader reader; // will read in all files from the initial CSV
     private QuestionPagerAdapter questionPagerAdapter;
     private ViewPager pager;
@@ -36,9 +36,13 @@ public class StartQuizActivity extends AppCompatActivity {
     private String[][] worldData;
     private int pos;
     private FragmentManager fragmentManager;
-    private RadioButton button_one;
-    private RadioButton button_two;
-    private RadioButton button_three;
+
+    /**
+     * Creates the start quiz activity
+     * Populates the quiz (question arrayList)
+     * @param savedInstanceState If the fragment is being re-created from
+     *      * a previous saved state, this is the state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +61,6 @@ public class StartQuizActivity extends AppCompatActivity {
         worldData = reader.getData();
         manager.insertCC(worldData);
 
-
         while (added < limit) {
             int index = reader.getRandIndex();
             memberCountry = reader.getCountry(index);
@@ -71,14 +74,8 @@ public class StartQuizActivity extends AppCompatActivity {
                 added++;
             }
         }
-
         pager = findViewById(R.id.viewPager);
         questionPagerAdapter = new QuestionPagerAdapter(this, quiz, getSupportFragmentManager());
         pager.setAdapter(questionPagerAdapter);
-
     }
-
-
-
-
 }

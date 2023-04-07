@@ -19,17 +19,19 @@ import java.util.ArrayList;
  */
 public class ShowResultsActivity extends AppCompatActivity {
 
-    private ArrayList<Quiz> results;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
     private DatabaseManager dbmanager;
-    private QuizResultAdapter quizResultsAdapter;
     private Intent intent;
     private ArrayList<Question> quiz;
 
     private Button startQuiz;
     private Button viewPast;
 
+    /**
+     * Creates the show results activity, including all results
+     * for the quiz questions
+     * @param savedInstanceState If the fragment is being re-created from
+     *      * a previous saved state, this is the state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
