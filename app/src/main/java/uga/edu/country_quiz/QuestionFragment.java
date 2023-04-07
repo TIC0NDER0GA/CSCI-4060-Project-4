@@ -40,6 +40,10 @@ public class QuestionFragment extends Fragment {
     private Question question;
     private ArrayList<Question> quiz;
 
+    /**
+     * Creates a QuestionFragment instance
+     * @param q the current quiz
+     */
     public QuestionFragment(ArrayList<Question> q) {
         quiz = q;
     }
@@ -54,6 +58,20 @@ public class QuestionFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates a view for each question fragment, shuffles answer choices
+     * so that they are in a random order for new questions, and shows the
+     * finish quiz button on the last question.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return The view to be created
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,10 +95,6 @@ public class QuestionFragment extends Fragment {
         choiceTwo.setText(answerChoices.get(1));
         choiceThree.setText(answerChoices.get(2));
 
-//        choiceOne.setText(question.getRightC());
-//        choiceTwo.setText(question.getWrongC1());
-//        choiceThree.setText(question.getWrongC2());
-
         choiceOne.setOnClickListener(new QuestionFragment.ButtonClickListener());
         choiceTwo.setOnClickListener(new QuestionFragment.ButtonClickListener());
         choiceThree.setOnClickListener(new QuestionFragment.ButtonClickListener());
@@ -96,33 +110,24 @@ public class QuestionFragment extends Fragment {
         return ui;
     }
 
-
+    /**
+     * Class which acts as a listener for the question radio
+     * buttons, as well as the finish quiz button. Whenever a
+     * radio button is clicked, that answer choice is saved
+     * and checked for correctness.
+     */
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             RadioButton choice;
             switch (view.getId()){
                 case R.id.choice_one:
-                    choice = (RadioButton) view;
-                    question.setAnswerChoice(choice.getText().toString());
-                    question.checkAnswer(choice.getText().toString());
-                    quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
-                    Log.e(TAG, choice.getText().toString()  + " Choice 1");
-
-                    break;
                 case R.id.choice_two:
-                    choice = (RadioButton) view;
-                    question.setAnswerChoice(choice.getText().toString());
-                    question.checkAnswer(choice.getText().toString());
-                    quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
-                    Log.e(TAG, choice.getText().toString() + " Choice 2");
-                    break;
                 case R.id.choice_three:
                     choice = (RadioButton) view;
                     question.setAnswerChoice(choice.getText().toString());
                     question.checkAnswer(choice.getText().toString());
                     quiz.get(question.getQuestionNumber()).checkAnswer(choice.getText().toString());
-                    Log.e(TAG, choice.getText().toString() +  " Choice 3");
                     break;
                 case R.id.finish_button:
                     if (question.getQuestionNumber() == 5) {
@@ -133,15 +138,12 @@ public class QuestionFragment extends Fragment {
                         Date currentDate = new Date();
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String dateString = formatter.format(currentDate);
-
                         for (int i = 0;  i < quiz.size(); i++) {
                             if (quiz.get(i).isCorrect()) {
                                 correct++;
                             }
                         }
                         percentage = (correct / total) * 100;
-                        // Log.e(TAG, "correct: " + correct + " /" + "total: " + total + " /" + "%: " + percentage);
-                        // Log.e(TAG, dateString);
                         intent.putExtra("date", dateString);
                         intent.putExtra("score", percentage);
                         intent.putExtra("questions", quiz);

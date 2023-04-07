@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to show the results of the individual questions
+ * from the quiz which was just taken.
+ */
 public class ShowResultsActivity extends AppCompatActivity {
 
     private ArrayList<Quiz> results;
@@ -82,6 +86,16 @@ public class ShowResultsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets the views to the correct question number,
+     * country, & continent. Also shows a checkmark
+     * for a correct answer and an X for a wrong one.
+     * @param image View for checkmark or X to show correctness
+     * @param qIdView View for question number and country name
+     * @param correct View for correct continent
+     * @param currQ Question to be displayed
+     * @param qNum Question number
+     */
     private void showQResult(ImageView image, TextView qIdView, TextView correct, Question currQ, String qNum) {
         correct.setText("Correct Answer:  " + currQ.getRightC());
         qIdView.setText(qNum + currQ.getCountry());
@@ -93,6 +107,10 @@ public class ShowResultsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Listener for the "Start New Quiz" and "View Past Quizzes"
+     * buttons and then starts the correct activity
+     */
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {

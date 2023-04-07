@@ -18,6 +18,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to begin a new quiz after the user has
+ * clicked the start button. Uses a CSVReader and
+ * a DatabaseManager to read from the CSV and then
+ * set up the list of questions to use for the quiz.
+ */
 public class StartQuizActivity extends AppCompatActivity {
 
     private Context context;
